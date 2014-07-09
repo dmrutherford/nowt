@@ -1,3 +1,3 @@
 # nowt
 
-*Need summat' doin'?*
+*Need summat doin'?*
