@@ -213,5 +213,11 @@ done
 
 # FALLBACK
 
+if ! [ -z "$1" ]
+then
+    initnowt "pending"
+    add "$1"
+    exit
+fi
 list "$pending"
 exit
