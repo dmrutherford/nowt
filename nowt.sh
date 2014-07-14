@@ -79,6 +79,16 @@ deempty() {
     fi
 }
 
+deexist() {
+    if ! [ -f "$pending" ] && ! [ -f "$completed" ]
+    then
+        if [ -d "$nowt" ]
+        then
+            rmdir "$nowt"
+        fi
+    fi
+}
+
 list() {
     if [ -f "$1" ]
     then
@@ -109,6 +119,7 @@ process() {
     task=$(awk -v n=$1 "NR == n { print }" "$pending")
     awk -v n=$1 -v l="" "NR == n { print l; next } { print }" "$pending" > "$pending.tmp"
     mv "$pending.tmp" "$pending"
+    deempty "$pending"
 }
 
 complete() {
@@ -119,6 +130,7 @@ complete() {
 
 remove() {
     process $1
+    deexist
     echo "'$task' removed!"
 }
 
@@ -141,6 +153,7 @@ prune() {
         fi
         mv "$completed.tmp" "$completed"
         deempty "$completed"
+        deexist
     fi
 }
 
