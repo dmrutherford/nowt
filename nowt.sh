@@ -73,7 +73,12 @@ deblank() {
     mv "$1.tmp" "$1"
 }
 
+isnull() {
+    if [ -z "$1" ]
     then
+        nullerr=true
+    else
+        nullerr=false
     fi
 }
 
@@ -96,12 +101,32 @@ list() {
 }
 
 add() {
+    isnull "$1"
+    if [ $nullerr = "true" ]
+    then
+        echo "NULL is not a task"
+        exit 1
+    fi
     echo "$1" >> "$pending"
     echo "\"$1\" added!"
 }
 
 process() {
     task=$(awk -v n=$1 "NR == n { print }" "$pending")
+    isnull "$task"
+    if [ $nullerr = "true" ]
+    then
+        total=`wc -l < "$pending"`
+        if [ "$1" -gt "$total" ]
+        then
+            echo "You didn't have that much to do!"
+            echo "Pick a lower number..."
+            exit 1
+        fi
+        echo "Task $task has already been processed!"
+        echo "Run \"$progname -l\" to clean up the list..."
+        exit 1
+    fi
     awk -v n=$1 -v l="" "NR == n { print l; next } { print }" "$pending" > "$pending.tmp"
     mv "$pending.tmp" "$pending"
 }

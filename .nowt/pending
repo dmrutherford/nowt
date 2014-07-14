@@ -1,2 +1,0 @@
-fail if marking a non-existent item as completed
-make clearing files if empty optional
