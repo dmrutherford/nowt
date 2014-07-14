@@ -52,7 +52,8 @@ EO
     -r n        &remove nth item (without archiving)
     -y          &show the archive
     -p [n]      &prune the archive to the n most recent items (10 by default)
-    -n          &nuke all traces of nowt (asks for confirmation first)
+    -n          &nuke all traces of nowt in cwd (asks for confirmation first)
+    -e          &show every nowt project under cwd
     -h          &show available commands
 EO
     echo ""
@@ -127,6 +128,13 @@ remove() {
     echo "'$task' removed!"
 }
 
+projects() {
+    for project in `find $PWD -name .nowt`
+    do
+        dirname $project
+    done
+}
+
 prune() {
     if [ -f "$completed" ]
     then
@@ -160,7 +168,7 @@ nuke() {
 
 # COMMANDS
 
-opts=":la:c:r:ypnh"
+opts=":la:c:r:ypneh"
 
 while getopts $opts opt; do
     case "$opt" in
@@ -196,6 +204,10 @@ while getopts $opts opt; do
             then
                 nuke
             fi
+            exit
+            ;;
+        e)
+            projects
             exit
             ;;
         h)
