@@ -113,7 +113,7 @@ list() {
 
 add() {
     echo "$1" >> "$pending"
-    echo "'$1' added!"
+    echo "\"$1\" added!"
 }
 
 process() {
@@ -126,13 +126,12 @@ process() {
 complete() {
     process $1
     echo "$task" >> "$completed"
-    echo "'$task' done!"
+    echo "\"$task\" done!"
 }
 
 remove() {
     process $1
-    deexist
-    echo "'$task' removed!"
+    echo "\"$task\" removed!"
 }
 
 projects() {
@@ -224,8 +223,8 @@ while getopts $opts opt; do
             exit
             ;;
         \?)
-            echo "The command '$progname -$OPTARG' is invalid."
-            echo "Run '$progname -h' for help..."
+            echo "The command \"$progname -$OPTARG\" is invalid."
+            echo "Run \"$progname -h\" for help..."
             exit
             ;;
     esac
