@@ -64,6 +64,8 @@ initnowt() {
     then
         mkdir .nowt
     fi
+    touch "$pending"
+    touch "$completed"
 }
 
 deblank() {
@@ -110,7 +112,6 @@ list() {
 }
 
 add() {
-    initnowt "$pending"
     echo "$1" >> "$pending"
     echo "'$1' added!"
 }
@@ -184,7 +185,7 @@ while getopts $opts opt; do
             exit
             ;;
         a)
-            initnowt "$pending"
+            initnowt
             add "$2"
             exit
             ;;
@@ -194,6 +195,7 @@ while getopts $opts opt; do
             exit
             ;;
         r)
+            initnowt
             remove $2
             exit
             ;;
@@ -234,7 +236,7 @@ done
 
 if ! [ -z "$1" ]
 then
-    initnowt "pending"
+    initnowt
     add "$1"
     exit
 fi
