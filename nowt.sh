@@ -64,12 +64,6 @@ initnowt() {
     then
         mkdir .nowt
     fi
-    if [ "$1" = "$pending" ]
-    then
-        touch "$pending"
-    else
-        touch "$completed"
-    fi
 }
 
 deblank() {
