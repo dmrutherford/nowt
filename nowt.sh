@@ -73,41 +73,25 @@ deblank() {
     mv "$1.tmp" "$1"
 }
 
-deempty() {
-    deblank "$1"
-    if ! [ -s "$1" ]
     then
-        rm "$1"
-    fi
-}
-
-deexist() {
-    if ! [ -f "$pending" ] && ! [ -f "$completed" ]
-    then
-        if [ -d "$nowt" ]
-        then
-            rmdir "$nowt"
-        fi
     fi
 }
 
 list() {
     if [ -f "$1" ]
     then
-        deempty "$1"
-        if [ -f "$1" ]
+        deblank "$1"
+        if [ -s "$1" ]
         then
             cat -n "$1"
-        else
-            echo "You've done nowt!"
+            exit
         fi
+    fi
+    if [ "$1" = "$pending" ]
+    then
+        echo "You've nowt to do!"
     else
-        if [ "$1" = "$pending" ]
-        then
-            echo "You've nowt to do!"
-        else
-            echo "You've done nowt!"
-        fi
+        echo "You've done nowt!"
     fi
 }
 
@@ -120,7 +104,6 @@ process() {
     task=$(awk -v n=$1 "NR == n { print }" "$pending")
     awk -v n=$1 -v l="" "NR == n { print l; next } { print }" "$pending" > "$pending.tmp"
     mv "$pending.tmp" "$pending"
-    deempty "$pending"
 }
 
 complete() {
@@ -152,8 +135,6 @@ prune() {
             tail -n $1 "$completed" >> "$completed.tmp"
         fi
         mv "$completed.tmp" "$completed"
-        deempty "$completed"
-        deexist
     fi
 }
 
