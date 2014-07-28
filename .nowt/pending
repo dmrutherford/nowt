@@ -1,0 +1,5 @@
+add number of pending items count to nowt -e
+warn that nowt -e is slow
+find a faster way of doing nowt -e
+is there a way of automatically modifying the PS1 prompt?
+colourise nowt's output
