@@ -3,3 +3,7 @@ warn that nowt -e is slow
 find a faster way of doing nowt -e
 is there a way of automatically modifying the PS1 prompt?
 colourise nowt's output
+namespace nowt variables
+can we ditch the need for quotation marks?
+perhaps make a global index of nowt projects, updated by -E
+if global index, .nowt in ~ and .nowt-project for projects
