@@ -6,4 +6,5 @@ colourise nowt's output
 namespace nowt variables
 can we ditch the need for quotation marks?
 perhaps make a global index of nowt projects, updated by -E
-if global index, .nowt in ~ and .nowt-project for projects
+if global index, .nowt_data in ~
+fail on modifying negative numbered or non-integer items
