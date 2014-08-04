@@ -12,7 +12,7 @@
 #
 #   8888888888888888888888888888888888888888888888
 #
-#   tpo-a002-1.3.2
+#   tpo-a002-1.4.0
 #   d m rutherford
 #
 
@@ -47,7 +47,7 @@ Commands:
 EO
     cat <<EO | column -s\& -t
     -l          &list pending items
-    -a "foo"    &add "foo" to the list
+    -a foo bar  &add "foo bar" to the list
     -c n        &mark nth item completed (adds it to the archive)
     -r n        &remove nth item (without archiving)
     -y          &show the archive
@@ -101,14 +101,14 @@ list() {
 }
 
 add() {
-    isnull "$1"
+    isnull "$*"
     if [ $nullerr = "true" ]
     then
-        echo "NULL is not a task"
+        echo "NULL is not a task :p"
         exit 1
     fi
-    echo "$1" >> "$pending"
-    echo "\"$1\" added!"
+    echo "$*" >> "$pending"
+    echo "\"$*\" added!"
 }
 
 process() {
@@ -191,7 +191,8 @@ while getopts $opts opt; do
             ;;
         a)
             initnowt
-            add "$2"
+            shift 1
+            add "$*"
             exit
             ;;
         c)
@@ -239,10 +240,10 @@ done
 
 # FALLBACK
 
-if ! [ -z "$1" ]
+if ! [ -z "$*" ]
 then
     initnowt
-    add "$1"
+    add "$*"
     exit
 fi
 list "$pending"
