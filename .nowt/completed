@@ -1,2 +1,3 @@
 fail if marking a non-existent item as completed
 can we ditch the need for quotation marks?
+fail on modifying negative numbered or non-integer items

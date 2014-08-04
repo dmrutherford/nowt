@@ -4,7 +4,5 @@ find a faster way of doing nowt -e
 is there a way of automatically modifying the PS1 prompt?
 colourise nowt's output
 namespace nowt variables
-
 perhaps make a global index of nowt projects, updated by -E
 if global index, .nowt_data in ~
-fail on modifying negative numbered or non-integer items

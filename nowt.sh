@@ -12,7 +12,7 @@
 #
 #   8888888888888888888888888888888888888888888888
 #
-#   tpo-a002-1.4.0
+#   tpo-a002-1.4.1
 #   d m rutherford
 #
 
@@ -112,6 +112,12 @@ add() {
 }
 
 process() {
+    case "$1" in
+        *[!0-9]*)
+            echo "That's not a valid task number!"
+            echo "Pick a positive integer..."
+            exit 1
+    esac
     task=$(awk -v n=$1 "NR == n { print }" "$pending")
     isnull "$task"
     if [ $nullerr = "true" ]
@@ -232,7 +238,7 @@ while getopts $opts opt; do
         \?)
             echo "The command \"$progname -$OPTARG\" is invalid."
             echo "Run \"$progname -h\" for help..."
-            exit
+            exit 1
             ;;
     esac
 done
